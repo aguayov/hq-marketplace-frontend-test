@@ -1,0 +1,45 @@
+{
+  "name": "hq-marketplace-frontend-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
+    "format:check": "prettier --check \"./**/*.{js,yml,json,md,css}\"",
+    "git": "git add . && precise-commits && git-precommit-checks && git add . && exec < /dev/tty && git cz",
+    "postgit": "git push origin -u $BRANCH",
+    "cy:open": "cypress open",
+    "test": "jest --testPathIgnorePatterns cypress --coverage",
+    "test:watch": "jest --testPathIgnorePatterns cypress --coverage --watch",
+    "prepare": "husky install",
+    "clean": "rm -rf .next",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@types/node": "20.4.5",
+    "@types/react": "18.2.18",
+    "@types/react-dom": "18.2.7",
+    "axios": "^0.27.2",
+    "date-fns": "^2.19.0",
+    "eslint": "8.46.0",
+    "eslint-config-next": "13.4.12",
+    "husky": "^8.0.3",
+    "next": "13.4.12",
+    "react": "18.2.0",
+    "react-confetti": "^6.1.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.2",
+    "react-icons": "^4.10.1",
+    "react-loader-spinner": "^5.3.4",
+    "react-spring": "^9.7.2",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "prettier": "2.7.1"
+  }
+}

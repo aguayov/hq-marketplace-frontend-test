@@ -1,0 +1,18 @@
+export const colors: { [key: string]: string } = {
+  black: "#000000",
+  white: "#ffffff",
+  gray: "#808080",
+  red: "#ff0000",
+  green: "#00ff00",
+  blue: "#0000ff",
+  yellow: "#ffff00",
+  cyan: "#00ffff",
+  magenta: "#ff00ff",
+  silver: "#c0c0c0",
+  grayDark: "#a9a9a9",
+  grayLight: "#d3d3d3",
+  grayLighter: "#f4f4f4",
+  grayLightest: "#f8f8f8",
+  grayDarkLighter: "#e5e5e5",
+  grayDarkLightest: "#f0f0f0",
+}
