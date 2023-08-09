@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { CartPopover, Flex, Text } from 'components';
-import { useMarketplaceState } from 'context/MarketplaceContextProvider';
+import {
+  useMarketplaceState,
+  useMarketplaceDispatch,
+} from 'context/MarketplaceContextProvider';
 
 const MarketplaceHeader: React.FC = () => {
   // ============================== HOOKS ===================================
   const state = useMarketplaceState();
+  const dispatch = useMarketplaceDispatch();
+
+  if (!state) {
+    return null;
+  }
 
   // ============================== STATES ===================================
   const [isCartPopoverOpen, setIsCartPopoverOpen] = useState(false);
 
   // ============================== FUNCTIONS ===============================
   const handleCartIconClick = () => {
-    setIsCartPopoverOpen((prevState) => !prevState);
+    //setIsCartPopoverOpen((prevState) => !prevState);
+    toggleCartPopOver();
+  };
+
+  const toggleCartPopOver = () => {
+    dispatch({ type: 'TRIGGER_POPOVER', payload: true });
   };
 
   // ============================== RENDER ===============================
@@ -55,7 +68,7 @@ const MarketplaceHeader: React.FC = () => {
           </Text>
         </Flex>
       </Flex>
-      <CartPopover open={isCartPopoverOpen} />
+      <CartPopover open={state?.displayPopover} />
     </Flex>
   );
 };
