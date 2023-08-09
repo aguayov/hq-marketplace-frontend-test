@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ProductCard, Flex } from 'components';
 import { Product } from 'context/MarketplaceContextProvider';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 
 const MarketplaceHeader = dynamic(
   () => import('components/MarketplaceHeader'),
@@ -11,27 +12,33 @@ const MarketplaceHeader = dynamic(
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const router = useRouter();
+  const { vendor_id, location_id } = router.query;
 
   // ============================== FUNCTIONS ===============================
 
-  const getProducts = useCallback(async () => {
-    /*  try {
-      const { data: productsRes } = await axios.get<Product[]>(
-        `${process.env.NEXT_PUBLIC_API_URL}/products`
-      );
-      if (productsRes) {
-        setProducts(productsRes);
+  const getProducts = useCallback(
+    async (location_id: number, vendor_id: number) => {
+      try {
+        const { data: productsRes } = await axios.get<Product[]>(
+          `${process.env.NEXT_PUBLIC_API_URL}/products/${location_id}/vendors/${vendor_id}`
+        );
+        if (productsRes) {
+          setProducts(productsRes);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    } */
-    setProducts([{ id: 1, name: 'test', price: 100, vendor_id: 1 }]);
-  }, []);
+    },
+    []
+  );
 
   // ============================== USE EFFECTS ===================================
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    if (vendor_id && location_id) {
+      getProducts(Number(location_id), Number(vendor_id));
+    }
+  }, [vendor_id, location_id]);
 
   // ============================== RENDER ===============================
   return (
