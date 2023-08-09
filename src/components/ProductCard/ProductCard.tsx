@@ -1,19 +1,20 @@
 // components/Loader.tsx
 import React from 'react';
 import {
-  Product,
+  CartItem,
   useMarketplaceDispatch,
   useMarketplaceState,
 } from 'context/MarketplaceContextProvider';
 import { Button } from 'components';
 import { useRouter } from 'next/router';
+import { FaTrash } from 'react-icons/fa';
 
 interface ProductProps {
-  product: Product;
+  product: CartItem;
 }
 
 const ProductCard: React.FC<ProductProps> = ({ product }) => {
-  const { name, price, vendor_id } = product;
+  const { name, price, vendor_id, quantity, id } = product;
   const router = useRouter();
   const state = useMarketplaceState();
   const dispatch = useMarketplaceDispatch();
@@ -22,9 +23,8 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
     return null;
   }
 
-  const handleAddToCart = () => {
-    //to do add product to cart
-    // display popover with cart menu
+  const handleAddToCart = (product: CartItem) => {
+    dispatch({ type: 'SET_CART', payload: product });
     toggleCartPopOver();
   };
 
@@ -33,18 +33,34 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
   };
 
   const handleBuyNow = () => {
-    //to do add product to cart logic
+    !quantity && dispatch({ type: 'SET_CART', payload: product });
     router.push('/checkout');
   };
+
+  const shouldShowItem = !quantity;
 
   return (
     <div className='product-card'>
       <div className='product-details'>
         <h3 className='product-name'>{name}</h3>
         <p className='product-price'>${price}</p>
+        {quantity && <p className='product-quantity'>quantity: {quantity}</p>}
         <p className='product-vendor'>Vendor: {vendor_id}</p>
-        <Button onClick={handleBuyNow}>Buy Now</Button>
-        <Button onClick={handleAddToCart}>Add to Cart</Button>
+        {shouldShowItem && <Button onClick={handleBuyNow}>Buy Now</Button>}
+        {shouldShowItem && (
+          <Button
+            onClick={() => {
+              handleAddToCart(product);
+            }}
+          >
+            Add to Cart
+          </Button>
+        )}
+        {!shouldShowItem && (
+          <FaTrash
+            onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: id })}
+          />
+        )}
       </div>
     </div>
   );

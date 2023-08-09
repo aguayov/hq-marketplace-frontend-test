@@ -107,6 +107,10 @@ a {
 }
 
 
-.shopping-cart-icon{
+.inverted-icon{
   filter: invert(1);
+}
+
+.cart-popover-content{
+  color: #000000
 }

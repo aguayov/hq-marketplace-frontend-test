@@ -47,7 +47,7 @@ const MarketplaceHeader: React.FC = () => {
       <Flex position='relative' margin='0 16px'>
         <Text kind='f1 pointer'>
           <FiShoppingCart
-            className='shopping-cart-icon'
+            className='inverted-icon'
             onClick={handleCartIconClick}
           />
         </Text>
@@ -56,11 +56,11 @@ const MarketplaceHeader: React.FC = () => {
           top='90'
           right='90'
           border='1px solid black'
-          background='black'
+          background='white'
           borderRadius='50%'
           padding='2px 6px'
         >
-          <Text kind='f7' color='white'>
+          <Text kind='f7' color='black'>
             {state?.cart?.reduce(
               (total, product) => total + product.quantity,
               0

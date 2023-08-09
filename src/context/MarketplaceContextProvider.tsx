@@ -1,5 +1,17 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
+export type FormData = {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  delivery_address_line1: string;
+  delivery_address_line2: string;
+  delivery_address_city: string;
+  delivery_address_state: string;
+  delivery_address_country: string;
+  delivery_address_zipcode: string;
+};
+
 interface MarketplaceContextProviderProps {
   children: React.ReactNode;
 }
@@ -9,10 +21,11 @@ export interface Product {
   name: string;
   price: number;
   vendor_id: number;
+  location: number;
 }
 
 export interface CartItem extends Product {
-  quantity: number;
+  quantity?: number;
 }
 
 export interface MarketplaceState {
@@ -62,7 +75,7 @@ const reducer = (state: MarketplaceState, action: Action): MarketplaceState => {
       if (existingCartItem) {
         newCart = state?.cart?.map((item) =>
           item.id === action.payload.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity! + 1 }
             : item
         );
       } else {

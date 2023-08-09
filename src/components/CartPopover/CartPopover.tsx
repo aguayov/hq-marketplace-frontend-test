@@ -48,6 +48,7 @@ const CartPopover: React.FC<CarPopOverProps> = ({ open }) => {
   useEffect(() => {
     if (state?.cart) {
       setIsOpen(state?.cart?.length > 0);
+      dispatch({ type: 'TRIGGER_POPOVER', payload: state?.cart?.length > 0 });
       timeoutRef.current = setTimeout(closePopover, 5000);
     }
   }, [closePopover, state?.cart]);
@@ -100,8 +101,9 @@ const CartPopover: React.FC<CarPopOverProps> = ({ open }) => {
           justify='space-between'
           margin='initial initial 1em'
         >
-          <p>{`${item.name} x${item.quantity}`}</p>
+          <p className='cart-popover-content'>{`${item.name} x${item.quantity}`}</p>
           <FaTrash
+            className='inverted-icon'
             onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item.id })}
           />
         </Flex>
