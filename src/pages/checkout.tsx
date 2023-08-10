@@ -38,7 +38,7 @@ const CheckoutPage: React.FC = () => {
     try {
       const { data: checkout } = await axios.post<{ success: boolean }>(
         `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
-        { cart: state?.cart, customer_Information: data },
+        { cart: state?.cart, customer_information: data },
         {
           headers: {
             'Content-Type': 'application/json',
